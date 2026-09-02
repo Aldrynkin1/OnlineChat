@@ -1,0 +1,12 @@
+cmake_minimum_required(VERSION 3.15)
+project(ONLINE_CHAT LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+add_executable(ONLINE_CHAT 
+    main.cpp 
+    src/NetworkServer.cpp
+)
+
+target_include_directories(ONLINE_CHAT PRIVATE include)
