@@ -14,7 +14,7 @@ public:
     void log(LogLevel::Level level, const std::string &text);
 };
 
-void Logger::log(LogLevel::Level level, const std::string &text)
+inline void Logger::log(LogLevel::Level level, const std::string &text)
 {
     if (level == LogLevel::Level::INFO)
     {
