@@ -23,3 +23,14 @@ struct ChatMessage {
     int sender_fd;
     std::string text;
 };
+
+struct LogLevel
+    {
+        enum class Level
+        {
+            INFO = 1,
+            WARNING,
+            ERROR,
+            FATAL,
+        };
+    };

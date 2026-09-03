@@ -6,6 +6,7 @@
 #include <vector>
 #include <optional>
 #include <thread>
+#include "Logger.hpp"
 
 #include "MessageQueue.hpp"
 #include "Types.hpp"
@@ -23,6 +24,7 @@ private:
     std::thread worked_thread;
     std::mutex client_mutex;
 
+    Logger logger;
     MessageQueue msg_queue;
 
 public:

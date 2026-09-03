@@ -6,7 +6,7 @@ void NetworkServer::start(int port)
 
     if (server_fd < 0)
     {
-        std::cerr << "in func start cannot start" << std::endl;
+        logger.log(LogLevel::Level::ERROR, "in func start cannot start");
         return;
     }
 
@@ -21,17 +21,18 @@ void NetworkServer::start(int port)
 
     if (bind(server_fd, (sockaddr *)&address, sizeof(address)) < 0)
     {
-        std::cerr << "in func start bind failed" << std::endl;
+        logger.log(LogLevel::Level::ERROR, "in func start bind failed");
         return;
     }
 
     if (listen(server_fd, SOMAXCONN) < 0)
     {
-        std::cerr << "in func start listen failed";
+        logger.log(LogLevel::Level::FATAL, "in func start listen failed");
         return;
     }
 
     is_running = true;
+    logger.log(LogLevel::Level::INFO, "Server start on port " + std::to_string(port));
 }
 
 int NetworkServer::accept_client()
@@ -39,7 +40,7 @@ int NetworkServer::accept_client()
     int new_client_fd = accept(server_fd, nullptr, nullptr);
     if (new_client_fd < 0)
     {
-        std::cerr << "in func accept client client can't connected" << std::endl;
+        logger.log(LogLevel::Level::ERROR, "in func accept client client can't connected");
         return -1;
     }
     std::lock_guard<std::mutex> lock(client_mutex);
@@ -104,6 +105,7 @@ void NetworkServer::stop(int client_fd)
     if (clients_fd.empty())
     {
         is_running = false;
+        logger.log(LogLevel::Level::INFO, "App is close");
         if (server_fd >= 0)
         {
             close(server_fd);
